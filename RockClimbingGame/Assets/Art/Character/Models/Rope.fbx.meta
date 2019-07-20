@@ -1,60 +1,59 @@
 fileFormatVersion: 2
-guid: 13b885a0c9aedbe4eac6c4c502c0db10
+guid: fe306ef8cd9d11f4ea2824b671266ad3
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Ankle_Jnt_lh
-    100002: Ankle_Jnt_rh
-    100004: Elbow_Jnt_lh
-    100006: Elbow_Jnt_rh
-    100008: Foot_Jnt_lh
-    100010: Foot_Jnt_rh
-    100012: Hand_Jnt_lh
-    100014: Hand_Jnt_rh
-    100016: Head_Jnt
-    100018: Hip_Jnt_lh
-    100020: Hip_Jnt_rh
-    100022: Knee_Jnt_lh
-    100024: Knee_Jnt_rh
-    100026: Neck_Jnt
-    100028: Rig
-    100030: RockClimberBlue
-    100032: //RootNode
-    100034: Root_Jnt
-    100036: Shoulder_Jnt_lh
-    100038: Shoulder_Jnt_rh
-    100040: Spine_Jnt_01
-    100042: Spine_Jnt_02
-    100044: Wrist_Jnt_lh
-    100046: Wrist_Jnt_rh
-    400000: Ankle_Jnt_lh
-    400002: Ankle_Jnt_rh
-    400004: Elbow_Jnt_lh
-    400006: Elbow_Jnt_rh
-    400008: Foot_Jnt_lh
-    400010: Foot_Jnt_rh
-    400012: Hand_Jnt_lh
-    400014: Hand_Jnt_rh
-    400016: Head_Jnt
-    400018: Hip_Jnt_lh
-    400020: Hip_Jnt_rh
-    400022: Knee_Jnt_lh
-    400024: Knee_Jnt_rh
-    400026: Neck_Jnt
-    400028: Rig
-    400030: //RootNode
-    400032: RockClimberBlue
-    400034: Root_Jnt
-    400036: Shoulder_Jnt_lh
-    400038: Shoulder_Jnt_rh
-    400040: Spine_Jnt_01
-    400042: Spine_Jnt_02
-    400044: Wrist_Jnt_lh
-    400046: Wrist_Jnt_rh
-    2100000: RockClimberMaterial
-    4300000: RockClimberBlue
-    9500000: //RootNode
-    13700000: RockClimberBlue
+    100000: Carabiner
+    100002: Rope
+    100004: //RootNode
+    100006: RopeLoop
+    100008: RopeJoint1
+    100010: RopeJoint10
+    100012: RopeJoint11
+    100014: RopeJoint12
+    100016: RopeJoint13
+    100018: RopeJoint14
+    100020: RopeJoint15
+    100022: RopeJoint2
+    100024: RopeJoint3
+    100026: RopeJoint4
+    100028: RopeJoint5
+    100030: RopeJoint6
+    100032: RopeJoint7
+    100034: RopeJoint8
+    100036: RopeJoint9
+    100038: RopeRig
+    400000: Carabiner
+    400002: Rope
+    400004: //RootNode
+    400006: RopeLoop
+    400008: RopeJoint1
+    400010: RopeJoint10
+    400012: RopeJoint11
+    400014: RopeJoint12
+    400016: RopeJoint13
+    400018: RopeJoint14
+    400020: RopeJoint15
+    400022: RopeJoint2
+    400024: RopeJoint3
+    400026: RopeJoint4
+    400028: RopeJoint5
+    400030: RopeJoint6
+    400032: RopeJoint7
+    400034: RopeJoint8
+    400036: RopeJoint9
+    400038: RopeRig
+    2100000: RopeTexture
+    2100002: RockClimberMaterial
+    2300000: Carabiner
+    2300002: Rope
+    2300004: RopeLoop
+    3300000: Carabiner
+    3300002: Rope
+    3300004: RopeLoop
+    4300000: RopeLoop
+    4300002: Rope
+    4300004: Carabiner
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -107,8 +106,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -135,7 +134,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
