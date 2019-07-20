@@ -12,7 +12,7 @@ public class RockGenerator : MonoBehaviour {
 	const float rowSize = 1;
 	const float rowRandom = 0.5f;
 	
-	private GameObject[,] rocks;
+	private Rock[,] rocks;
 	
 	private Dictionary<int, List<Rock>> closestRocks;
 	private Dictionary<int, List<Rock>> startingRocks;
@@ -23,7 +23,7 @@ public class RockGenerator : MonoBehaviour {
 
 		ClearRocks();
 		
-		rocks = new GameObject[colomnCount, rowCount];
+		rocks = new Rock[colomnCount, rowCount];
 		closestRocks = new Dictionary<int, List<Rock>>();
 		startingRocks = new Dictionary<int, List<Rock>>();
 
@@ -33,7 +33,7 @@ public class RockGenerator : MonoBehaviour {
 		for (var height = 0; height < rowCount; height++) {
 			for (var width = 0; width < colomnCount; width++) {
 
-				rocks[width, height] = GameObject.Instantiate(rockPrefab, this.transform);
+				rocks[width, height] = GameObject.Instantiate(rockPrefab, this.transform).GetComponent<Rock>();
 
 				if ((height == 0 || height == 1) &&
 					(width == 3 || width == 4 || width == 7 || width == 8 || width == 12 || width == 13 || width == 16 || width == 17)) {
@@ -46,35 +46,39 @@ public class RockGenerator : MonoBehaviour {
 						if(false == startingRocks.ContainsKey(0)) {
 							startingRocks.Add(0, new List<Rock>());
 						}
-						startingRocks[0].Add(rocks[width, height].GetComponent<Rock>());
+						startingRocks[0].Add(rocks[width, height]);
 					}
 					if (width == 7 || width == 8) {
 						if (false == startingRocks.ContainsKey(1)) {
 							startingRocks.Add(1, new List<Rock>());
 						}
-						startingRocks[1].Add(rocks[width, height].GetComponent<Rock>());
+						startingRocks[1].Add(rocks[width, height]);
 					}
 					if (width == 12 || width == 13) {
 						if (false == startingRocks.ContainsKey(2)) {
 							startingRocks.Add(2, new List<Rock>());
 						}
-						startingRocks[2].Add(rocks[width, height].GetComponent<Rock>());
+						startingRocks[2].Add(rocks[width, height]);
 					}
 					if (width == 16 || width == 17) {
 						if (false == startingRocks.ContainsKey(3)) {
 							startingRocks.Add(3, new List<Rock>());
 						}
-						startingRocks[3].Add(rocks[width, height].GetComponent<Rock>());
+						startingRocks[3].Add(rocks[width, height]);
 					}
+
+					rocks[width, height].weightLimit = 999f;
 				}
 				else {
 					rocks[width, height].transform.position = new Vector3(
 						((width - Mathf.FloorToInt(colomnCount / 2f)) * colomnSize) + (UnityEngine.Random.value * colomnRandom + 0.25f) * colomnSize,
 						((height + 1) * rowSize) + (UnityEngine.Random.value* rowRandom + 0.25f) * rowSize,
 						0);
+
+					rocks[width, height].weightLimit = 125f - (UnityEngine.Random.value * 50f) - (height * 0.4f);
 				}
 
-				rocks[width, height].SetActive(true);
+				rocks[width, height].gameObject.SetActive(true);
 				rocks[width, height].name = "Rock-" + width + "-" + height;
 				rocks[width, height].GetComponent<Rock>().SetGraphic();
 
@@ -170,10 +174,12 @@ public class RockGenerator : MonoBehaviour {
 		//then check for closest rock
 		Rock closestRock = null;
 		foreach(var rock in surroundingRocks) {
-			var distanceToRock = (new Vector2(rock.transform.position.x, rock.transform.position.y) - point).SqrMagnitude();
-			if(distance > distanceToRock) {
-				distance = distanceToRock;
-				closestRock = rock;
+			if (rock.gameObject.activeSelf) {
+				var distanceToRock = (new Vector2(rock.transform.position.x, rock.transform.position.y) - point).SqrMagnitude();
+				if (distance > distanceToRock) {
+					distance = distanceToRock;
+					closestRock = rock;
+				}
 			}
 		}
 

@@ -3,14 +3,26 @@ using System.Collections;
 
 public class Rock : MonoBehaviour {
 
-	// Use this for initialization
-	void Start() {
-		
-	}
+	public float weightLimit;
+	public float damage = 0f;
+	public float damageMax = 300f;
 
-	// Update is called once per frame
-	void Update() {
+	public SpriteRenderer sprite;
 
+	public bool CheckDamage(float weight) {
+		var diff = weight - weightLimit;
+		damage += diff > 0 ? diff : 0;
+
+		sprite.color = new Color(1.0f,
+			1.0f - (damage / damageMax),
+			1.0f - (damage / damageMax));
+
+		if (damage > damageMax) {
+			gameObject.SetActive(false);
+			return true;
+		}
+
+		return false;
 	}
 
 	public void SetGraphic() {
@@ -20,6 +32,7 @@ public class Rock : MonoBehaviour {
 		foreach (Transform child in display) {
 			if (activeIndex == index) {
 				child.gameObject.SetActive(true);
+				sprite = child.GetComponentInChildren<SpriteRenderer>();
 			}
 			else {
 				child.gameObject.SetActive(false);

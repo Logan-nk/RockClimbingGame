@@ -5,12 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 	
     public Player player;
+	public GameObject chainPrefab;
 
 	public float armStrength = 35f;
 	public float torsoStrength = 100f;
+	public float weight = 100f;
+	public float currentWeight = 100f;
 
 	public float maxDistance = 2;
     private Vector3 leftHandStoredPos, rightHandStoredPos;
+
+	private List<PlayerController> tetheredAllies;
 
     public float controllerNum = 1;
 
@@ -23,7 +28,37 @@ public class PlayerController : MonoBehaviour {
 
     bool isHoldingLeftHand, isHoldingRightHand, isHoldingLeftLeg, isHoldingRightLeg;
 
-    private void ResetPlayer() {
+	public void Start() { 
+
+		var parent = this.transform.parent;
+		foreach(var controller in parent.GetComponentsInChildren<PlayerController>()) {
+			if(controller.controllerNum == controllerNum + 1) {
+				//attach link
+				AddTetheredPlayer(controller);
+				controller.AddTetheredPlayer(this);
+
+				var chain = GameObject.Instantiate(chainPrefab, player.hip.transform);
+				var start = chain.transform.FindDeepChild("RopeStart");
+				start.GetComponent<HingeJoint>().connectedBody = player.hip;
+				var end = chain.transform.FindDeepChild("RopeEnd");
+				var hinge = controller.player.hip.gameObject.AddComponent<HingeJoint>();
+				hinge.connectedBody = end.GetComponent<Rigidbody>();
+				hinge.autoConfigureConnectedAnchor = false;
+				hinge.connectedAnchor = new Vector3(0, 0, 0);
+				break;
+			}
+		}
+	}
+
+	public void AddTetheredPlayer(PlayerController player) {
+		if(tetheredAllies == null) {
+			tetheredAllies = new List<PlayerController>();
+		}
+
+		tetheredAllies.Add(player);
+	}
+
+	private void ResetPlayer() {
         //Set player start position
 
         isHoldingLeftHand = false;
@@ -112,6 +147,98 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+	public void UpdateRockDamage() {
+		var currentWeight = CalculateCurrentWeight();
+	
+		if (isHoldingLeftHand) {
+			var rock = player.rockManager.GetClosestRockToPoint(player.leftHand.transform.position, 0.15f);
+			if (rock == null || rock.CheckDamage(currentWeight)) {
+				isHoldingLeftHand = false;
+				player.LetGoRockLeftHand();
+			}
+		}
+
+		if (isHoldingRightHand) {
+			var rock = player.rockManager.GetClosestRockToPoint(player.rightHand.transform.position, 0.15f);
+			if (rock == null || rock.CheckDamage(currentWeight)) {
+				isHoldingRightHand = false;
+				player.LetGoRockRightHand();
+			}
+		}
+
+		if (isHoldingLeftLeg) {
+			var rock = player.rockManager.GetClosestRockToPoint(player.leftLeg.transform.position, 0.15f);
+			if (rock == null || rock.CheckDamage(currentWeight)) {
+				isHoldingLeftLeg = false;
+				player.LetGoRockLeftLeg();
+			}
+		}
+
+		if (isHoldingRightLeg) {
+			var rock = player.rockManager.GetClosestRockToPoint(player.rightLeg.transform.position, 0.15f);
+			if (rock == null || rock.CheckDamage(currentWeight)) {
+				isHoldingRightLeg = false;
+				player.LetGoRockRightLeg();
+			}
+		}
+	}
+
+	private float CalculateCurrentWeight() {
+		var stableLimbs = 0;
+		if (isHoldingLeftHand) stableLimbs++;
+		if (isHoldingRightHand) stableLimbs++;
+		if (isHoldingLeftLeg) stableLimbs++;
+		if (isHoldingRightLeg) stableLimbs++;
+
+		var targetWeight = weight;
+		var allyWeight = 0f;
+		var allySupport = false;
+		foreach (var ally in tetheredAllies) {
+			if(ally == this) {
+				continue;
+			}
+
+			if (ally.isHoldingLeftHand || ally.isHoldingRightHand || ally.isHoldingLeftLeg || ally.isHoldingRightLeg) {
+				continue;
+			}
+
+			Debug.Log("supporting 1 Ally");
+			allyWeight += ally.weight;
+
+			foreach (var ally2 in ally.tetheredAllies) {
+				if (ally2 == ally) {
+					continue;
+				}
+				if (ally2.isHoldingLeftHand || ally2.isHoldingRightHand || ally2.isHoldingLeftLeg || ally2.isHoldingRightLeg) {
+					allySupport = true;
+					continue;
+				}
+
+				Debug.Log("supporting 2 Allies");
+				allyWeight += ally2.weight;
+
+				foreach (var ally3 in ally2.tetheredAllies) {
+					if (ally3 == ally2) {
+						continue;
+					}
+					if (ally3.isHoldingLeftHand || ally3.isHoldingRightHand || ally3.isHoldingLeftLeg || ally3.isHoldingRightLeg) {
+						allySupport = true;
+						continue;
+					}
+
+					Debug.Log("supporting 3 Allies");
+					allyWeight += ally3.weight;
+				}
+			}
+		}
+
+		targetWeight += (allySupport ? allyWeight * 0.5f : allyWeight);
+
+		currentWeight = currentWeight > targetWeight ? targetWeight : currentWeight += 1.0f;
+
+		return currentWeight / stableLimbs;
+	}
+
     // Update is called once per frame
     void Update() {
         UpdateInput();
@@ -119,6 +246,8 @@ public class PlayerController : MonoBehaviour {
         UpdateGripControls();
 
         UpdateControlPositions();
+
+		UpdateRockDamage();
     }
 
     //Hand_Jnt_lh

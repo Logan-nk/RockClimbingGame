@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public Rigidbody leftHand, rightHand, leftLeg, rightLeg, torso;
+    public Rigidbody leftHand, rightHand, leftLeg, rightLeg, torso, hip;
 	public RockGenerator rockManager;
 
     public void SetLeftHandPos(float pos) {
