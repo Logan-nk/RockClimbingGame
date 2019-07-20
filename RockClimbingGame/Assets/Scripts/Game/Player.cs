@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public SpringJoint leftHand, rightHand, leftLeg, rightLeg;
+    public Rigidbody leftHand, rightHand, leftLeg, rightLeg;
 	public RockGenerator rockManager;
 
     public void SetLeftHandPos(float pos) {

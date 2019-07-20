@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour {
                 0);
             leftHandStoredPos = leftHand.transform.position;
             if (!isHoldingLeftHand) {
-                player.leftHand.connectedBody = leftHand;
+                //player.leftHand.connectedBody = leftHand;
             }
             else {
                 player.TryGrabRockLeftHand();
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour {
                 0);
             rightHandStoredPos = rightHand.transform.position;
             if (!isHoldingRightHand) {
-                player.rightHand.connectedBody = rightHand;
+               // player.rightHand.connectedBody = rightHand;
             }
             else {
                 player.TryGrabRockRightHand();
@@ -83,16 +83,21 @@ public class PlayerController : MonoBehaviour {
 
     private void UpdateControlPositions() {
         if (!isHoldingLeftHand) {
-            var xPos = leftHandStoredPos.x + (hAxis);
+			player.leftHand.AddForce(new Vector3(hAxis*100, -vAxis*100, 0));
+            /*
+			var xPos = leftHandStoredPos.x + (hAxis);
             var yPos = leftHandStoredPos.y + (-vAxis);
 
             leftHand.transform.position = new Vector3(
                xPos,
                 yPos,
                 0);
+				*/
         }
 
         if (!isHoldingRightHand) {
+			player.rightHand.AddForce(new Vector3(hAxis*100, -vAxis*100, 0));
+			/*
             var xPos = rightHandStoredPos.x + (hAxis);
             var yPos = rightHandStoredPos.y + (-vAxis);
 
@@ -100,7 +105,8 @@ public class PlayerController : MonoBehaviour {
                xPos,
                 yPos,
                 0);
-        }
+				*/
+		}
 
     }
 
