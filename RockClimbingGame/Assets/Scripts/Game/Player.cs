@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    public Rigidbody leftHand, rightHand, leftLeg, rightLeg;
+
+    public SpringJoint leftHand, rightHand, leftLeg, rightLeg;
 
     public void SetLeftHandPos(float pos) {
         //leftHand
@@ -19,11 +20,11 @@ public class Player : MonoBehaviour {
     }
 
     public void TryGrabRockLeftHand() {
-
+        Debug.Log("Tried to grab rock at: " + leftHand.transform.position);
     }
 
     public void TryGrabRockRightHand() {
-
+        Debug.Log("Tried to grab rock at: " + rightHand.transform.position);
     }
 
     public void TryGrabRockLeftLeg() {
