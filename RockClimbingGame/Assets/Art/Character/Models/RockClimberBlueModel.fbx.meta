@@ -27,6 +27,7 @@ ModelImporter:
     100042: Spine_Jnt_02
     100044: Wrist_Jnt_lh
     100046: Wrist_Jnt_rh
+    100048: RockClimberMountPoints
     400000: Ankle_Jnt_lh
     400002: Ankle_Jnt_rh
     400004: Elbow_Jnt_lh
@@ -51,8 +52,12 @@ ModelImporter:
     400042: Spine_Jnt_02
     400044: Wrist_Jnt_lh
     400046: Wrist_Jnt_rh
+    400048: RockClimberMountPoints
     2100000: RockClimberMaterial
+    2300000: RockClimberMountPoints
+    3300000: RockClimberMountPoints
     4300000: RockClimberBlue
+    4300002: RockClimberMountPoints
     9500000: //RootNode
     13700000: RockClimberBlue
   externalObjects: {}
