@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
     private void UpdateControlPositions() {
-		if(isHoldingLeftHand || isHoldingRightHand && isHoldingLeftLeg && isHoldingRightLeg) {
+		if(isHoldingLeftHand || isHoldingRightHand || isHoldingLeftLeg || isHoldingRightLeg) {
 			player.torso.AddForce(new Vector3(hAxis * torsoStrength, -vAxis * torsoStrength, 10));
 		}
 
