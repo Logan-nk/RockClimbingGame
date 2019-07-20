@@ -7,20 +7,55 @@ ModelImporter:
     100002: Rock2
     100004: Rock3
     100006: //RootNode
+    100008: Rock10
+    100010: Rock4
+    100012: Rock5
+    100014: Rock6
+    100016: Rock7
+    100018: Rock8
+    100020: Rock9
     400000: Rock1
     400002: Rock2
     400004: Rock3
     400006: //RootNode
+    400008: Rock10
+    400010: Rock4
+    400012: Rock5
+    400014: Rock6
+    400016: Rock7
+    400018: Rock8
+    400020: Rock9
     2100000: lambert3
     2300000: Rock1
     2300002: Rock2
     2300004: Rock3
+    2300006: Rock10
+    2300008: Rock4
+    2300010: Rock5
+    2300012: Rock6
+    2300014: Rock7
+    2300016: Rock8
+    2300018: Rock9
     3300000: Rock1
     3300002: Rock2
     3300004: Rock3
+    3300006: Rock10
+    3300008: Rock4
+    3300010: Rock5
+    3300012: Rock6
+    3300014: Rock7
+    3300016: Rock8
+    3300018: Rock9
     4300000: Rock1
     4300002: Rock2
     4300004: Rock3
+    4300006: Rock4
+    4300008: Rock5
+    4300010: Rock6
+    4300012: Rock7
+    4300014: Rock8
+    4300016: Rock9
+    4300018: Rock10
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -52,7 +87,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
