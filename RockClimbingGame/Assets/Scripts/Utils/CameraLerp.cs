@@ -28,8 +28,10 @@ public class CameraLerp : MonoBehaviour {
 			targetPosition /= activePlayers;
 
 			var pos = transform.position;
-			pos.y = Mathf.Lerp(pos.y, targetPosition.y, 0.5f);
-			transform.position = pos;
+			if (pos.y < targetPosition.y) {
+				pos.y = Mathf.Lerp(pos.y, targetPosition.y, 0.5f);
+				transform.position = pos;
+			}
 		}
 	}
 }
