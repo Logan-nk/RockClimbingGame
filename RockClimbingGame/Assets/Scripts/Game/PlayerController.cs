@@ -26,13 +26,22 @@ public class PlayerController : MonoBehaviour {
     bool leftHandControl;
     bool rightHandControl;
 
-    bool isHoldingLeftHand, isHoldingRightHand, isHoldingLeftLeg, isHoldingRightLeg;
+	bool lockControls = false;
 
-	public void Start() { 
+	bool isHoldingLeftHand, isHoldingRightHand, isHoldingLeftLeg, isHoldingRightLeg;
 
-		var parent = this.transform.parent;
+	public void LockInPlace() {
+		UpdateInput();
+
+		lockControls = true;
+	}
+
+	public void UnlockAndTether() {
+		lockControls = false;
+
+		var parent = this.transform.parent.parent;
 		foreach(var controller in parent.GetComponentsInChildren<PlayerController>()) {
-			if(controller.controllerNum == controllerNum + 1) {
+			if(controller.controllerNum == controllerNum + 1 && controller.gameObject.activeInHierarchy) {
 				//attach link
 				AddTetheredPlayer(controller);
 				controller.AddTetheredPlayer(this);
@@ -68,6 +77,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void UpdateInput() {
+		if (lockControls) return;
+
         leftLegControl = Input.GetAxis("LeftLeg_" + controllerNum) > 0;
         rightLegControl = Input.GetAxis("RightLeg_" + controllerNum) > 0;
         hAxis = Input.GetAxis("Horizontal_" + controllerNum);

@@ -14,7 +14,7 @@ public class Main : MonoBehaviour {
 
     List<int> waitingForPlayers;
     Dictionary<int, int> playerLookup;
-    Dictionary<int, Player> playerModelLookup;
+    Dictionary<int, PlayerController> playerModelLookup;
     int playerCount = 0;
     Animator uiAnimator;
 
@@ -28,6 +28,10 @@ public class Main : MonoBehaviour {
         foreach (var player in waitingForPlayers) {
             FindUtil.Child(this.transform, "Climber" + player).gameObject.SetActive(false);
         }
+
+		foreach(var controller in playerModelLookup) {
+			controller.Value.UnlockAndTether();
+		}
 
         uiAnimator.SetTrigger("StartClimb");
         climbStarted = true;
@@ -54,17 +58,19 @@ public class Main : MonoBehaviour {
             transform.position.y,
             transform.position.z);
 
-        playerModelLookup.Add(playerCount, FindUtil.Child<Player>(climber, "RockClimberBlueModel"));
+        playerModelLookup.Add(playerCount, FindUtil.Child<PlayerController>(climber, "DummyController"));
 
         //attach to previous player
         var container = FindUtil.Child(this.transform, "Player" + playerCount);
         FindUtil.Child(container, "JoinMessage").gameObject.SetActive(false);
+
+		playerModelLookup[playerCount].LockInPlace();
     }
 
     private void CheckScore() {
         var highest = 0f;
         foreach(var player in playerModelLookup.Keys) {
-            highest = Mathf.Max((playerModelLookup[player].hip.transform.position.y - 7), highest);
+            highest = Mathf.Max((playerModelLookup[player].player.hip.transform.position.y - 7), highest);
         }
 
         Debug.Log(highest);
@@ -75,7 +81,7 @@ public class Main : MonoBehaviour {
     private void Init() {
         waitingForPlayers = new List<int> { 1, 2, 3, 4 };
         playerLookup = new Dictionary<int, int>();
-        playerModelLookup = new Dictionary<int, Player>();
+        playerModelLookup = new Dictionary<int, PlayerController>();
         //Reset positions & ui
         foreach (var player in waitingForPlayers) {
             var climber = FindUtil.Child(this.transform, "Climber" + player);

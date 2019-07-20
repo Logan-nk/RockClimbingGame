@@ -14,7 +14,8 @@ public class WallManager : MonoBehaviour {
         DestroyLevel();
         wallCount = 0;
         AddWall();
-    }
+		AddWall();
+	}
 
     private void DestroyLevel() {
         if (wallList != null) {
@@ -25,7 +26,6 @@ public class WallManager : MonoBehaviour {
     }
 
     public void AddWall() {
-        wallCount++;
         var wall = UnityEngine.Object.Instantiate(wallPrefab);
         wall.SetActive(true);
         wall.transform.position = new Vector3(
@@ -39,7 +39,9 @@ public class WallManager : MonoBehaviour {
             UnityEngine.Object.Destroy(wallList[0]);
             wallList.RemoveAt(0);
         }
-    }
+
+		wallCount++;
+	}
 
     void Update() {
 
