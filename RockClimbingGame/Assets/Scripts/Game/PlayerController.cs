@@ -95,19 +95,19 @@ public class PlayerController : MonoBehaviour {
 		}
 
         if (!isHoldingLeftHand) {
-			player.leftHand.AddForce(new Vector3(hAxis* armStrength, -vAxis* armStrength, 10));
+			player.leftHand.AddForce(new Vector3(hAxis* armStrength, -vAxis* armStrength, 5));
         }
 
         if (!isHoldingRightHand) {
-			player.rightHand.AddForce(new Vector3(hAxis* armStrength, -vAxis* armStrength, 10));
+			player.rightHand.AddForce(new Vector3(hAxis* armStrength, -vAxis* armStrength, 5));
 		}
 
 		if (!isHoldingLeftLeg) {
-			player.leftLeg.AddForce(new Vector3(hAxis * armStrength, -vAxis * armStrength, 10));
+			player.leftLeg.AddForce(new Vector3(hAxis * armStrength, -vAxis * armStrength, 5));
 		}
 
 		if (!isHoldingRightLeg) {
-			player.rightLeg.AddForce(new Vector3(hAxis * armStrength, -vAxis * armStrength, 10));
+			player.rightLeg.AddForce(new Vector3(hAxis * armStrength, -vAxis * armStrength, 5));
 		}
 
 	}
