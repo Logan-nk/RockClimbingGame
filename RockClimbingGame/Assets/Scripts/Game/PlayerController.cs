@@ -193,41 +193,43 @@ public class PlayerController : MonoBehaviour {
 		var targetWeight = weight;
 		var allyWeight = 0f;
 		var allySupport = false;
-		foreach (var ally in tetheredAllies) {
-			if(ally == this) {
-				continue;
-			}
-
-			if (ally.isHoldingLeftHand || ally.isHoldingRightHand || ally.isHoldingLeftLeg || ally.isHoldingRightLeg) {
-				continue;
-			}
-
-			Debug.Log("supporting 1 Ally");
-			allyWeight += ally.weight;
-
-			foreach (var ally2 in ally.tetheredAllies) {
-				if (ally2 == ally) {
-					continue;
-				}
-				if (ally2.isHoldingLeftHand || ally2.isHoldingRightHand || ally2.isHoldingLeftLeg || ally2.isHoldingRightLeg) {
-					allySupport = true;
+		if (tetheredAllies != null) {
+			foreach (var ally in tetheredAllies) {
+				if (ally == this) {
 					continue;
 				}
 
-				Debug.Log("supporting 2 Allies");
-				allyWeight += ally2.weight;
+				if (ally.isHoldingLeftHand || ally.isHoldingRightHand || ally.isHoldingLeftLeg || ally.isHoldingRightLeg) {
+					continue;
+				}
 
-				foreach (var ally3 in ally2.tetheredAllies) {
-					if (ally3 == ally2) {
+				Debug.Log("supporting 1 Ally");
+				allyWeight += ally.weight;
+
+				foreach (var ally2 in ally.tetheredAllies) {
+					if (ally2 == ally) {
 						continue;
 					}
-					if (ally3.isHoldingLeftHand || ally3.isHoldingRightHand || ally3.isHoldingLeftLeg || ally3.isHoldingRightLeg) {
+					if (ally2.isHoldingLeftHand || ally2.isHoldingRightHand || ally2.isHoldingLeftLeg || ally2.isHoldingRightLeg) {
 						allySupport = true;
 						continue;
 					}
 
-					Debug.Log("supporting 3 Allies");
-					allyWeight += ally3.weight;
+					Debug.Log("supporting 2 Allies");
+					allyWeight += ally2.weight;
+
+					foreach (var ally3 in ally2.tetheredAllies) {
+						if (ally3 == ally2) {
+							continue;
+						}
+						if (ally3.isHoldingLeftHand || ally3.isHoldingRightHand || ally3.isHoldingLeftLeg || ally3.isHoldingRightLeg) {
+							allySupport = true;
+							continue;
+						}
+
+						Debug.Log("supporting 3 Allies");
+						allyWeight += ally3.weight;
+					}
 				}
 			}
 		}
@@ -240,7 +242,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
     // Update is called once per frame
-    void Update() {
+    void LateUpdate() {
         UpdateInput();
 
         UpdateGripControls();
