@@ -118,6 +118,10 @@ public class RockGenerator : MonoBehaviour {
 	}  
 
 	public Rock GetClosestRockToPoint(Vector2 point) {
+		if (rocks == null) {
+			RebuildRockList();
+		}
+
 		//first get center index
 		var colomnIndex = Mathf.FloorToInt((Mathf.FloorToInt(colomnCount / 2f) * colomnSize + point.x) / colomnSize);
 		var rowIndex = Mathf.FloorToInt(point.y / rowSize)-1;
@@ -147,7 +151,7 @@ public class RockGenerator : MonoBehaviour {
 	}
 
 	public void Update() {
-		if(rocks == null) {
+		/*if(rocks == null) {
 			RebuildRockList();
 		}
 
@@ -155,7 +159,7 @@ public class RockGenerator : MonoBehaviour {
 
 		if(rock != null) {
 			Debug.Log(rock.name);
-		}
+		}*/
 	}
 
 	[ContextMenu("Clear Rocks")]
