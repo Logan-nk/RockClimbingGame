@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-
-    public Rigidbody leftHand, rightHand, leftLeg, rightLeg;
+	
     public Player player;
 
-    public float maxDistance = 2;
+	public float armStrength = 35f;
+	public float torsoStrength = 100f;
+
+	public float maxDistance = 2;
     private Vector3 leftHandStoredPos, rightHandStoredPos;
 
+    public float controllerNum = 1;
 
     float hAxis;
     float vAxis;
@@ -30,79 +33,84 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void UpdateInput() {
-        leftLegControl = Input.GetAxis("LeftLeg") > 0;
-        rightLegControl = Input.GetAxis("RightLeg") > 0;
-        hAxis = Input.GetAxis("Horizontal");
-        vAxis = Input.GetAxis("Vertical");
-        leftHandControl = Input.GetButton("LeftHand");
-        rightHandControl = Input.GetButton("RightHand");
+        leftLegControl = Input.GetAxis("LeftLeg_" + controllerNum) > 0;
+        rightLegControl = Input.GetAxis("RightLeg_" + controllerNum) > 0;
+        hAxis = Input.GetAxis("Horizontal_" + controllerNum);
+        vAxis = Input.GetAxis("Vertical_" + controllerNum);
+        leftHandControl = Input.GetButton("LeftHand_" + controllerNum);
+        rightHandControl = Input.GetButton("RightHand_" + controllerNum);
     }
 
     private void UpdateGripControls() {
         if (isHoldingLeftHand != leftHandControl) {
             Debug.Log("Left Hand Grip: " + leftHandControl);
             isHoldingLeftHand = leftHandControl;
-            leftHand.transform.position = new Vector3(
-                player.leftHand.transform.position.x,
-                player.leftHand.transform.position.y,
-                0);
-            leftHandStoredPos = leftHand.transform.position;
             if (!isHoldingLeftHand) {
-                player.leftHand.connectedBody = leftHand;
-            }
+				//player.leftHand.connectedBody = leftHand;
+				player.LetGoRockLeftHand();
+			}
             else {
-                player.TryGrabRockLeftHand();
+                isHoldingLeftHand = player.TryGrabRockLeftHand();
             }
         }
 
         if (isHoldingRightHand != rightHandControl) {
             Debug.Log("Right Hand Grip: " + rightHandControl);
             isHoldingRightHand = rightHandControl;
-
-            rightHand.transform.position = new Vector3(
-                player.rightHand.transform.position.x,
-                player.rightHand.transform.position.y,
-                0);
-            rightHandStoredPos = rightHand.transform.position;
             if (!isHoldingRightHand) {
-                player.rightHand.connectedBody = rightHand;
-            }
+				// player.rightHand.connectedBody = rightHand;
+				player.LetGoRockRightHand();
+			}
             else {
-                player.TryGrabRockRightHand();
+               isHoldingRightHand = player.TryGrabRockRightHand();
             }
         }
 
-        //if (isHoldingLeftLeg != leftLegControl) {
+		if (isHoldingLeftLeg != leftLegControl) {
+			Debug.Log("Left Leg Grip: " + leftLegControl);
+			isHoldingLeftLeg = leftLegControl;
+			if (!isHoldingLeftLeg) {
+				player.LetGoRockLeftLeg();
+			}
+			else {
+				isHoldingLeftLeg = player.TryGrabRockLeftLeg();
+			}
+		}
 
-        //}
-
-        //if (isHoldingRightLeg != rightLegControl) {
-
-        //}
-    }
+		if (isHoldingRightLeg != rightLegControl) {
+			Debug.Log("Right Leg Grip: " + rightLegControl);
+			isHoldingRightLeg = rightLegControl;
+			if (!isHoldingRightLeg) {
+				player.LetGoRockRightLeg();
+			}
+			else {
+				isHoldingRightLeg = player.TryGrabRockRightLeg();
+			}
+		}
+	}
 
     private void UpdateControlPositions() {
-        if (!isHoldingLeftHand) {
-            var xPos = leftHandStoredPos.x + (hAxis);
-            var yPos = leftHandStoredPos.y + (-vAxis);
+		if(isHoldingLeftHand || isHoldingRightHand || isHoldingLeftLeg || isHoldingRightLeg) {
+			player.torso.AddForce(new Vector3(hAxis * torsoStrength, -vAxis * torsoStrength, 10));
+		}
 
-            leftHand.transform.position = new Vector3(
-               xPos,
-                yPos,
-                0);
+        if (!isHoldingLeftHand) {
+			player.leftHand.AddForce(new Vector3(hAxis* armStrength, -vAxis* armStrength, 5));
         }
 
         if (!isHoldingRightHand) {
-            var xPos = rightHandStoredPos.x + (hAxis);
-            var yPos = rightHandStoredPos.y + (-vAxis);
+			player.rightHand.AddForce(new Vector3(hAxis* armStrength, -vAxis* armStrength, 5));
+		}
 
-            rightHand.transform.position = new Vector3(
-               xPos,
-                yPos,
-                0);
-        }
+		if (!isHoldingLeftLeg) {
+			player.leftLeg.AddForce(new Vector3(hAxis * armStrength, -vAxis * armStrength, 5));
+		}
 
-    }
+		if (!isHoldingRightLeg) {
+			player.rightLeg.AddForce(new Vector3(hAxis * armStrength, -vAxis * armStrength, 5));
+		}
+
+	}
 
     // Update is called once per frame
     void Update() {
@@ -111,9 +119,6 @@ public class PlayerController : MonoBehaviour {
         UpdateGripControls();
 
         UpdateControlPositions();
-        
-
-
     }
 
     //Hand_Jnt_lh

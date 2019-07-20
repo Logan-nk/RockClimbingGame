@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public SpringJoint leftHand, rightHand, leftLeg, rightLeg;
+    public Rigidbody leftHand, rightHand, leftLeg, rightLeg, torso;
 	public RockGenerator rockManager;
 
     public void SetLeftHandPos(float pos) {
@@ -20,30 +20,67 @@ public class Player : MonoBehaviour {
         return value;
     }
 
-    public void TryGrabRockLeftHand() {
-        Debug.Log("Tried to grab rock at: " + leftHand.transform.position);
-		var rock = rockManager.GetClosestRockToPoint(leftHand.transform.position);
+    public bool TryGrabRockLeftHand() {
+		Debug.Log("Tried to grab rock at: " + leftHand.transform.position);
+		var rock = rockManager.GetClosestRockToPoint(leftHand.transform.position, 0.1f);
 
 		if (rock != null) {
-
+			leftHand.isKinematic = true;
+			return true;
 		}
+
+		return false;
 	}
 
-    public void TryGrabRockRightHand() {
-        Debug.Log("Tried to grab rock at: " + rightHand.transform.position);
+	public void LetGoRockLeftHand() {
+		leftHand.isKinematic = false;
+	}
 
-		var rock = rockManager.GetClosestRockToPoint(rightHand.transform.position);
+    public bool TryGrabRockRightHand() {
+		Debug.Log("Tried to grab rock at: " + rightHand.transform.position);
+		var rock = rockManager.GetClosestRockToPoint(rightHand.transform.position, 0.1f);
 
 		if (rock != null) {
-
+			rightHand.isKinematic = true;
+			return true;
 		}
+
+		return false;
 	}
 
-    public void TryGrabRockLeftLeg() {
+	public void LetGoRockRightHand() {
+		rightHand.isKinematic = false;
+	}
 
-    }
+	public bool TryGrabRockLeftLeg() {
+		Debug.Log("Tried to grab rock at: " + leftLeg.transform.position);
+		var rock = rockManager.GetClosestRockToPoint(leftLeg.transform.position, 0.1f);
 
-    public void TryGrabRockRightLeg() {
+		if (rock != null) {
+			leftLeg.isKinematic = true;
+			return true;
+		}
 
-    }
+		return false;
+	}
+
+	public void LetGoRockLeftLeg() {
+		leftLeg.isKinematic = false;
+	}
+
+	public bool TryGrabRockRightLeg() {
+		Debug.Log("Tried to grab rock at: " + rightLeg.transform.position);
+		var rock = rockManager.GetClosestRockToPoint(rightLeg.transform.position, 0.1f);
+
+		if (rock != null) {
+			rightLeg.isKinematic = true;
+			return true;
+		}
+
+		return false;
+	}
+
+	public void LetGoRockRightLeg() {
+		rightLeg.isKinematic = false;
+	}
 }
