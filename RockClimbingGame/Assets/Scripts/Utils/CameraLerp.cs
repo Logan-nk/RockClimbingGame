@@ -10,20 +10,26 @@ public class CameraLerp : MonoBehaviour {
 	public void LateUpdate() {
 		if(players == null) {
 			players = new List<Player>();
-			foreach (var player in characters.GetComponentsInChildren<Player>()) {
+			foreach (var player in characters.GetComponentsInChildren<Player>(true)) {
 				players.Add(player);
 			}
 		}
 
 		var targetPosition = new Vector3();
-		foreach(var player in players) {
-			targetPosition += player.hip.transform.position;
+		var activePlayers = 0;
+		foreach (var player in players) {
+			if (player.gameObject.activeInHierarchy) {
+				targetPosition += player.hip.transform.position;
+				activePlayers++;
+			}
 		}
 
-		targetPosition /= players.Count;
+		if (activePlayers != 0) {
+			targetPosition /= activePlayers;
 
-		var pos = transform.position;
-		pos.y = Mathf.Lerp(pos.y, targetPosition.y, 0.5f);
-		transform.position = pos;
+			var pos = transform.position;
+			pos.y = Mathf.Lerp(pos.y, targetPosition.y, 0.5f);
+			transform.position = pos;
+		}
 	}
 }

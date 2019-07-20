@@ -7,15 +7,15 @@ public class Rock : MonoBehaviour {
 	public float damage = 0f;
 	public float damageMax = 300f;
 
-	public SpriteRenderer sprite;
+	public MeshRenderer renderer;
 
 	public bool CheckDamage(float weight) {
 		var diff = weight - weightLimit;
 		damage += diff > 0 ? diff : 0;
 
-		sprite.color = new Color(1.0f,
-			1.0f - (damage / damageMax),
-			1.0f - (damage / damageMax));
+		renderer.material.color = new Color(0.5f,
+			(1.0f - damage / damageMax) * 0.5f,
+			(1.0f - damage / damageMax) *0.5f);
 
 		if (damage > damageMax) {
 			gameObject.SetActive(false);
@@ -32,7 +32,7 @@ public class Rock : MonoBehaviour {
 		foreach (Transform child in display) {
 			if (activeIndex == index) {
 				child.gameObject.SetActive(true);
-				sprite = child.GetComponentInChildren<SpriteRenderer>();
+				renderer = child.GetComponentInChildren<MeshRenderer>();
 			}
 			else {
 				child.gameObject.SetActive(false);
