@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-
-    public Rigidbody leftHand, rightHand, leftLeg, rightLeg;
+	
     public Player player;
 
-    public float maxDistance = 2;
+	public float armStrength = 35f;
+	public float torsoStrength = 100f;
+
+	public float maxDistance = 2;
     private Vector3 leftHandStoredPos, rightHandStoredPos;
 
 
@@ -42,75 +44,72 @@ public class PlayerController : MonoBehaviour {
         if (isHoldingLeftHand != leftHandControl) {
             Debug.Log("Left Hand Grip: " + leftHandControl);
             isHoldingLeftHand = leftHandControl;
-            leftHand.transform.position = new Vector3(
-                player.leftHand.transform.position.x,
-                player.leftHand.transform.position.y,
-                0);
-            leftHandStoredPos = leftHand.transform.position;
             if (!isHoldingLeftHand) {
 				//player.leftHand.connectedBody = leftHand;
 				player.LetGoRockLeftHand();
 			}
             else {
-                player.TryGrabRockLeftHand();
+                isHoldingLeftHand = player.TryGrabRockLeftHand();
             }
         }
 
         if (isHoldingRightHand != rightHandControl) {
             Debug.Log("Right Hand Grip: " + rightHandControl);
             isHoldingRightHand = rightHandControl;
-
-            rightHand.transform.position = new Vector3(
-                player.rightHand.transform.position.x,
-                player.rightHand.transform.position.y,
-                0);
-            rightHandStoredPos = rightHand.transform.position;
             if (!isHoldingRightHand) {
 				// player.rightHand.connectedBody = rightHand;
 				player.LetGoRockRightHand();
 			}
             else {
-                player.TryGrabRockRightHand();
+               isHoldingRightHand = player.TryGrabRockRightHand();
             }
         }
 
-        //if (isHoldingLeftLeg != leftLegControl) {
+		if (isHoldingLeftLeg != leftLegControl) {
+			Debug.Log("Left Leg Grip: " + leftLegControl);
+			isHoldingLeftLeg = leftLegControl;
+			if (!isHoldingLeftLeg) {
+				player.LetGoRockLeftLeg();
+			}
+			else {
+				isHoldingLeftLeg = player.TryGrabRockLeftLeg();
+			}
+		}
 
-        //}
-
-        //if (isHoldingRightLeg != rightLegControl) {
-
-        //}
-    }
+		if (isHoldingRightLeg != rightLegControl) {
+			Debug.Log("Right Leg Grip: " + rightLegControl);
+			isHoldingRightLeg = rightLegControl;
+			if (!isHoldingRightLeg) {
+				player.LetGoRockRightLeg();
+			}
+			else {
+				isHoldingRightLeg = player.TryGrabRockRightLeg();
+			}
+		}
+	}
 
     private void UpdateControlPositions() {
-        if (!isHoldingLeftHand) {
-			player.leftHand.AddForce(new Vector3(hAxis*100, -vAxis*100, 0));
-            /*
-			var xPos = leftHandStoredPos.x + (hAxis);
-            var yPos = leftHandStoredPos.y + (-vAxis);
+		if(isHoldingLeftHand || isHoldingRightHand && isHoldingLeftLeg && isHoldingRightLeg) {
+			player.torso.AddForce(new Vector3(hAxis * torsoStrength, -vAxis * torsoStrength, 10));
+		}
 
-            leftHand.transform.position = new Vector3(
-               xPos,
-                yPos,
-                0);
-				*/
+        if (!isHoldingLeftHand) {
+			player.leftHand.AddForce(new Vector3(hAxis* armStrength, -vAxis* armStrength, 10));
         }
 
         if (!isHoldingRightHand) {
-			player.rightHand.AddForce(new Vector3(hAxis*100, -vAxis*100, 0));
-			/*
-            var xPos = rightHandStoredPos.x + (hAxis);
-            var yPos = rightHandStoredPos.y + (-vAxis);
-
-            rightHand.transform.position = new Vector3(
-               xPos,
-                yPos,
-                0);
-				*/
+			player.rightHand.AddForce(new Vector3(hAxis* armStrength, -vAxis* armStrength, 10));
 		}
 
-    }
+		if (!isHoldingLeftLeg) {
+			player.leftLeg.AddForce(new Vector3(hAxis * armStrength, -vAxis * armStrength, 10));
+		}
+
+		if (!isHoldingRightLeg) {
+			player.rightLeg.AddForce(new Vector3(hAxis * armStrength, -vAxis * armStrength, 10));
+		}
+
+	}
 
     // Update is called once per frame
     void Update() {
