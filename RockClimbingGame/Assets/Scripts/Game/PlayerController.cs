@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float maxDistance = 2;
     private Vector3 leftHandStoredPos, rightHandStoredPos;
 
+    public float controllerNum = 1;
 
     float hAxis;
     float vAxis;
@@ -30,12 +31,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void UpdateInput() {
-        leftLegControl = Input.GetAxis("LeftLeg") > 0;
-        rightLegControl = Input.GetAxis("RightLeg") > 0;
-        hAxis = Input.GetAxis("Horizontal");
-        vAxis = Input.GetAxis("Vertical");
-        leftHandControl = Input.GetButton("LeftHand");
-        rightHandControl = Input.GetButton("RightHand");
+        leftLegControl = Input.GetAxis("LeftLeg_" + controllerNum) > 0;
+        rightLegControl = Input.GetAxis("RightLeg_" + controllerNum) > 0;
+        hAxis = Input.GetAxis("Horizontal_" + controllerNum);
+        vAxis = Input.GetAxis("Vertical_" + controllerNum);
+        leftHandControl = Input.GetButton("LeftHand_" + controllerNum);
+        rightHandControl = Input.GetButton("RightHand_" + controllerNum);
     }
 
     private void UpdateGripControls() {
@@ -119,9 +120,6 @@ public class PlayerController : MonoBehaviour {
         UpdateGripControls();
 
         UpdateControlPositions();
-        
-
-
     }
 
     //Hand_Jnt_lh
