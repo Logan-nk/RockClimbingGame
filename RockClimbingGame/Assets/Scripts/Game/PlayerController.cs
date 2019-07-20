@@ -48,8 +48,9 @@ public class PlayerController : MonoBehaviour {
                 0);
             leftHandStoredPos = leftHand.transform.position;
             if (!isHoldingLeftHand) {
-                //player.leftHand.connectedBody = leftHand;
-            }
+				//player.leftHand.connectedBody = leftHand;
+				player.LetGoRockLeftHand();
+			}
             else {
                 player.TryGrabRockLeftHand();
             }
@@ -65,8 +66,9 @@ public class PlayerController : MonoBehaviour {
                 0);
             rightHandStoredPos = rightHand.transform.position;
             if (!isHoldingRightHand) {
-               // player.rightHand.connectedBody = rightHand;
-            }
+				// player.rightHand.connectedBody = rightHand;
+				player.LetGoRockRightHand();
+			}
             else {
                 player.TryGrabRockRightHand();
             }

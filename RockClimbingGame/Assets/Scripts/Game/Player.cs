@@ -21,7 +21,10 @@ public class Player : MonoBehaviour {
     }
 
     public void TryGrabRockLeftHand() {
-        Debug.Log("Tried to grab rock at: " + leftHand.transform.position);
+
+		leftHand.isKinematic = true;
+
+		Debug.Log("Tried to grab rock at: " + leftHand.transform.position);
 		var rock = rockManager.GetClosestRockToPoint(leftHand.transform.position);
 
 		if (rock != null) {
@@ -29,8 +32,15 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	public void LetGoRockLeftHand() {
+		leftHand.isKinematic = false;
+	}
+
     public void TryGrabRockRightHand() {
-        Debug.Log("Tried to grab rock at: " + rightHand.transform.position);
+
+		rightHand.isKinematic = true;
+
+		Debug.Log("Tried to grab rock at: " + rightHand.transform.position);
 
 		var rock = rockManager.GetClosestRockToPoint(rightHand.transform.position);
 
@@ -39,7 +49,11 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-    public void TryGrabRockLeftLeg() {
+	public void LetGoRockRightHand() {
+		rightHand.isKinematic = false;
+	}
+
+	public void TryGrabRockLeftLeg() {
 
     }
 
