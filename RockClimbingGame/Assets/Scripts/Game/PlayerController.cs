@@ -47,13 +47,19 @@ public class PlayerController : MonoBehaviour {
 				controller.AddTetheredPlayer(this);
 
 				var chain = GameObject.Instantiate(chainPrefab, player.hip.transform);
-				var start = chain.transform.FindDeepChild("RopeStart");
-				start.GetComponent<HingeJoint>().connectedBody = player.hip;
-				var end = chain.transform.FindDeepChild("RopeEnd");
+
+				var start = chain.transform.FindDeepChild("CarabinerStart");
 				var hinge = controller.player.hip.gameObject.AddComponent<HingeJoint>();
-				hinge.connectedBody = end.GetComponent<Rigidbody>();
+				hinge.connectedBody = start.GetComponent<Rigidbody>();
 				hinge.autoConfigureConnectedAnchor = false;
-				hinge.connectedAnchor = new Vector3(0, 0, 0);
+				hinge.connectedAnchor = new Vector3(0.5f, 0, 0);
+
+				var end = chain.transform.FindDeepChild("CarabinerEnd");
+				var endHinge = end.GetComponent<HingeJoint>();
+				endHinge.connectedBody = player.hip;
+				endHinge.autoConfigureConnectedAnchor = false;
+				endHinge.connectedAnchor = new Vector3(-0.5f, 0, 0);
+
 				break;
 			}
 		}
@@ -247,7 +253,7 @@ public class PlayerController : MonoBehaviour {
 
 		targetWeight += (allySupport ? allyWeight * 0.5f : allyWeight);
 
-		currentWeight = currentWeight > targetWeight ? targetWeight : currentWeight += 1.0f;
+		currentWeight = currentWeight > targetWeight ? targetWeight : currentWeight += 0.5f;
 
 		return currentWeight / stableLimbs;
 	}
