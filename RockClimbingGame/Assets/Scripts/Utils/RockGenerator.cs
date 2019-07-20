@@ -4,15 +4,12 @@ using System.Collections.Generic;
 using System;
 
 public class RockGenerator : MonoBehaviour {
-
-	[HideInInspector]
-	public GameObject rockPrefab = null;
-
-	const int colomnCount = 5;
-	const float colomnSize = 4f;
+	
+	const int colomnCount = 9;
+	const float colomnSize = 2f;
 	const float colomnRandom = 0.5f;
 	const int rowCount = 50;
-	const float rowSize = 4;
+	const float rowSize = 2;
 	const float rowRandom = 0.5f;
 	
 	private GameObject[,] rocks;
@@ -27,11 +24,9 @@ public class RockGenerator : MonoBehaviour {
 		
 		rocks = new GameObject[colomnCount, rowCount];
 		closestRocks = new Dictionary<int, List<Rock>>();
-
-		if (rockPrefab == null) {
-			rockPrefab = transform.Find("RockPrefab").gameObject;
-			rockPrefab.SetActive(false);
-		}
+		
+		var rockPrefab = transform.Find("RockPrefab").gameObject;
+		rockPrefab.SetActive(false);
 
 		for (var height = 0; height < rowCount; height++) {
 			for (var width = 0; width < colomnCount; width++) {	
@@ -43,6 +38,7 @@ public class RockGenerator : MonoBehaviour {
 				rocks[width, height].transform.position = position;
 				rocks[width, height].SetActive(true);
 				rocks[width, height].name = "Rock-" + width + "-" + height;
+				rocks[width, height].GetComponent<Rock>().SetGraphic();
 			}
 		}
 
