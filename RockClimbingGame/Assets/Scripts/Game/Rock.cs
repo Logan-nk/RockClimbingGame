@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 public class Rock : MonoBehaviour {
 
@@ -10,9 +12,16 @@ public class Rock : MonoBehaviour {
 	public MeshRenderer renderer;
 
 	public GameObject display;
-	public GameObject breakParticles; 
+	public GameObject breakParticles;
 
-	public bool CheckDamage(float weight) {
+    public List<AudioClip> audio;
+    private AudioSource audioSource;
+
+    private void Start() {
+        audioSource = this.transform.GetComponent<AudioSource>();
+    }
+
+    public bool CheckDamage(float weight) {
 		var diff = weight - weightLimit;
 		damage += diff > 0 ? diff : 0;
 
@@ -23,6 +32,9 @@ public class Rock : MonoBehaviour {
 		if (damage > damageMax) {
 			display.SetActive(false);
 			breakParticles.SetActive(true);
+            audioSource.clip = audio[Random.Range(0, audio.Count)];
+            audioSource.Play();
+
 			return true;
 		}
 

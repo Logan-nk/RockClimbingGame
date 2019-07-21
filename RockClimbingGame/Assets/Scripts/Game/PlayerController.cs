@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 leftHandStoredPos, rightHandStoredPos;
 
 	private List<PlayerController> tetheredAllies;
+    private AudioSource audioSource;
 
     public float controllerNum = 1;
 
@@ -118,6 +119,7 @@ public class PlayerController : MonoBehaviour {
 			}
             else {
                 isHoldingLeftHand = player.TryGrabRockLeftHand();
+                //audioSource.Play();
             }
         }
 
@@ -130,6 +132,7 @@ public class PlayerController : MonoBehaviour {
 			}
             else {
                isHoldingRightHand = player.TryGrabRockRightHand();
+                //audioSource.Play();
             }
         }
 
@@ -141,7 +144,8 @@ public class PlayerController : MonoBehaviour {
 			}
 			else {
 				isHoldingLeftLeg = player.TryGrabRockLeftLeg();
-			}
+                //audioSource.Play();
+            }
 		}
 
 		if (isHoldingRightLeg != rightLegControl) {
@@ -152,8 +156,9 @@ public class PlayerController : MonoBehaviour {
 			}
 			else {
 				isHoldingRightLeg = player.TryGrabRockRightLeg();
-			}
-		}
+                //audioSource.Play();
+            }
+		}        
 	}
 
     private void UpdateControlPositions() {
@@ -176,7 +181,6 @@ public class PlayerController : MonoBehaviour {
 		if (!isHoldingRightLeg) {
 			player.rightLeg.AddForce(new Vector3(hAxis * armStrength, -vAxis * armStrength, 5));
 		}
-
 	}
 
 	public void UpdateRockDamage() {
@@ -213,6 +217,8 @@ public class PlayerController : MonoBehaviour {
 				player.LetGoRockRightLeg();
 			}
 		}
+
+        
 	}
 
 	private float CalculateCurrentWeight() {
@@ -270,7 +276,11 @@ public class PlayerController : MonoBehaviour {
 		return currentWeight / stableLimbs;
 	}
 
-	private void Update() {
+    private void Start() {
+        audioSource = this.transform.GetComponent<AudioSource>();
+    }
+
+    private void Update() {
 		if(knockOutTime > 0) {
 			knockOutTime -= Time.deltaTime;
 
