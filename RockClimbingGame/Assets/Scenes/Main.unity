@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -537,6 +537,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characters: {fileID: 875419344}
+--- !u!4 &128136700 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+    type: 3}
+  m_PrefabInstance: {fileID: 821907472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &172674253
 GameObject:
   m_ObjectHideFlags: 0
@@ -3174,6 +3180,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809960704}
   m_CullTransparentMesh: 0
+--- !u!1001 &821907472
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2043920134}
+    m_Modifications:
+    - target: {fileID: 1736632309973125313, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_Name
+      value: RockClimberBlueChill
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.915
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.158
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.395
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.11245876
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.92242783
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.20903562
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.30460492
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -27.010002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -144.69101
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736632309973357727, guid: 3b5a6cf0c0024cc43acad02b88dfb54d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 5.1600003
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3b5a6cf0c0024cc43acad02b88dfb54d, type: 3}
 --- !u!1001 &834721594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3880,6 +3955,75 @@ Transform:
   m_Father: {fileID: 387161431}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1135385773
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2043920134}
+    m_Modifications:
+    - target: {fileID: 2806326084326103929, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_Name
+      value: RockClimberYellowChill
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.682
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.933
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.012909367
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9297056
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.32592157
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.17104399
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -36.985
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -204.122
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 9.766001
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4b45e3f6a7365724b90b678fe2b39f46, type: 3}
 --- !u!1 &1149662708
 GameObject:
   m_ObjectHideFlags: 0
@@ -4255,7 +4399,7 @@ PrefabInstance:
     - target: {fileID: 7663368245546158780, guid: a99df3e1e2781a84e8cb7f28946e35b9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7663368245546158780, guid: a99df3e1e2781a84e8cb7f28946e35b9,
         type: 3}
@@ -4832,6 +4976,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305971092}
   m_CullTransparentMesh: 0
+--- !u!4 &1371376344 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2806326084326131495, guid: 4b45e3f6a7365724b90b678fe2b39f46,
+    type: 3}
+  m_PrefabInstance: {fileID: 1135385773}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1371803259
 GameObject:
   m_ObjectHideFlags: 0
@@ -5240,6 +5390,75 @@ Transform:
   m_Father: {fileID: 2043920134}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1459327201
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2043920134}
+    m_Modifications:
+    - target: {fileID: 7037480587243072363, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_Name
+      value: RockClimberOrangeChill
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.05327026
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.89077264
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.33375487
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.30379933
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -38.827003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -220.47299
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 7.9600005
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a0ba114ca16510643984a79aacc72b37, type: 3}
 --- !u!1 &1479269493
 GameObject:
   m_ObjectHideFlags: 0
@@ -6934,6 +7153,87 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!4 &2003268079 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7037480587242977077, guid: a0ba114ca16510643984a79aacc72b37,
+    type: 3}
+  m_PrefabInstance: {fileID: 1459327201}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2014016600
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2043920134}
+    m_Modifications:
+    - target: {fileID: 7231272269592190354, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_Name
+      value: RockClimberRedChill
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.358
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.293
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.09324124
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9120061
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.19208974
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.35021782
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -24.562
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -138.473
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 2.239
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c41eb0e6b16df43478fabb698bc78f38, type: 3}
+--- !u!4 &2015108157 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7231272269592084940, guid: c41eb0e6b16df43478fabb698bc78f38,
+    type: 3}
+  m_PrefabInstance: {fileID: 2014016600}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2043920132
 GameObject:
   m_ObjectHideFlags: 0
@@ -6989,6 +7289,10 @@ Transform:
   - {fileID: 706567506}
   - {fileID: 1444010202}
   - {fileID: 1457459071}
+  - {fileID: 128136700}
+  - {fileID: 2003268079}
+  - {fileID: 2015108157}
+  - {fileID: 1371376344}
   - {fileID: 970807177}
   m_Father: {fileID: 0}
   m_RootOrder: 0
