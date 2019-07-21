@@ -9,6 +9,9 @@ public class Rock : MonoBehaviour {
 
 	public MeshRenderer renderer;
 
+	public GameObject display;
+	public GameObject breakParticles; 
+
 	public bool CheckDamage(float weight) {
 		var diff = weight - weightLimit;
 		damage += diff > 0 ? diff : 0;
@@ -18,7 +21,8 @@ public class Rock : MonoBehaviour {
 			(1.0f - damage / damageMax) *0.5f);
 
 		if (damage > damageMax) {
-			gameObject.SetActive(false);
+			display.SetActive(false);
+			breakParticles.SetActive(true);
 			return true;
 		}
 
@@ -26,10 +30,11 @@ public class Rock : MonoBehaviour {
 	}
 
 	public void SetGraphic() {
-		var display = transform.Find("Display");
-		var activeIndex = Random.Range(0, display.childCount);
+		display = transform.Find("Display").gameObject;
+		breakParticles = transform.Find("DustEffect").gameObject;
+		var activeIndex = Random.Range(0, display.transform.childCount);
 		var index = 0;
-		foreach (Transform child in display) {
+		foreach (Transform child in display.transform) {
 			if (activeIndex == index) {
 				child.gameObject.SetActive(true);
 				renderer = child.GetComponentInChildren<MeshRenderer>();

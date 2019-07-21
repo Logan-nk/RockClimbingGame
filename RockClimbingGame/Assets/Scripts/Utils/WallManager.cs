@@ -12,9 +12,7 @@ public class WallManager : MonoBehaviour {
 
     public void NewLevel() {
         DestroyLevel();
-        wallCount = 0;
-        AddWall();
-		AddWall();
+        wallCount = 2;
 	}
 
     private void DestroyLevel() {

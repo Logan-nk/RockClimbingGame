@@ -51,7 +51,7 @@ public class RockGenerator : MonoBehaviour {
 						((currentHeight + 1) * rowSize) + (UnityEngine.Random.value* rowRandom + 0.25f) * rowSize,
 						0);
 
-					newRock.weightLimit = 125f - (UnityEngine.Random.value * 50f) - (currentHeight * 0.4f);
+					newRock.weightLimit = 125f - (UnityEngine.Random.value * 40f) - (currentHeight * 0.1f);
 				}
 
 				newRock.gameObject.SetActive(true);

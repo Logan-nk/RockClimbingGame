@@ -92,7 +92,7 @@ public class Main : MonoBehaviour {
     }
 
     private bool CheckGameNotOver() {
-        var cameraHeight = Camera.main.transform.position.y - 5;
+        var cameraHeight = Camera.main.transform.position.y - 10;
 
         foreach (var player in playerModelLookup.Keys) {
             if (playerModelLookup[player].player.hip.transform.position.y > cameraHeight) return true;
@@ -223,7 +223,7 @@ public class Main : MonoBehaviour {
         }
         else {
             CheckScore();
-            if (heightReached >= wallManager.wallHeight * wallManager.wallCount) {
+            if (heightReached >= wallManager.wallHeight * wallManager.wallCount - 30) {
                 wallManager.AddWall();
             }
 			if(heightReached >= rockManager.currentHeight * RockGenerator.rowSize - 20) {
