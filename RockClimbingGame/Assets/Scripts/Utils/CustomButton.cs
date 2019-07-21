@@ -130,6 +130,10 @@ public class CustomButton : Button {
 
     }
 
+    protected override void OnDestroy() {
+        
+    }
+
     public static void HideButtonGroup(string groupId) {
 
         List<CustomButton> group;
