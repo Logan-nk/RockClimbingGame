@@ -212,10 +212,7 @@ public class PlayerController : MonoBehaviour {
 		var allySupport = false;
 		if (tetheredAllies != null) {
 			foreach (var ally in tetheredAllies) {
-				if (ally == this) {
-					continue;
-				}
-
+				
 				if (ally.isHoldingLeftHand || ally.isHoldingRightHand || ally.isHoldingLeftLeg || ally.isHoldingRightLeg) {
 					continue;
 				}
@@ -224,7 +221,7 @@ public class PlayerController : MonoBehaviour {
 				allyWeight += ally.weight;
 
 				foreach (var ally2 in ally.tetheredAllies) {
-					if (ally2 == ally) {
+					if (ally2 == this) {
 						continue;
 					}
 					if (ally2.isHoldingLeftHand || ally2.isHoldingRightHand || ally2.isHoldingLeftLeg || ally2.isHoldingRightLeg) {
@@ -236,7 +233,7 @@ public class PlayerController : MonoBehaviour {
 					allyWeight += ally2.weight;
 
 					foreach (var ally3 in ally2.tetheredAllies) {
-						if (ally3 == ally2) {
+						if (ally3 == ally) {
 							continue;
 						}
 						if (ally3.isHoldingLeftHand || ally3.isHoldingRightHand || ally3.isHoldingLeftLeg || ally3.isHoldingRightLeg) {
