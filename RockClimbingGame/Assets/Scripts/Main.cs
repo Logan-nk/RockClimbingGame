@@ -33,7 +33,10 @@ public class Main : MonoBehaviour {
     bool submit;
     float vAxis;
 
-    private void BeginClimb() {
+	float gameOverTimer = 0;
+
+
+	private void BeginClimb() {
         foreach (var player in waitingForPlayers) {
             FindUtil.Child(this.transform, "Climber" + player).gameObject.SetActive(false);
         }
@@ -116,6 +119,8 @@ public class Main : MonoBehaviour {
         climbStarted = false;
         playerCount = 0;
 
+		gameOverTimer = 3.0f;
+
         foreach (var player in playerModelLookup.Keys) {
             var sound = FindUtil.Child<AudioSource>(this.transform, "Climber" + player);
             sound.Play();
@@ -155,30 +160,49 @@ public class Main : MonoBehaviour {
     }
 
     private void CheckMenuInput() {
-        vAxis = Input.GetAxis("Vertical_1") + Input.GetAxis("Vertical_2")
-            + Input.GetAxis("Vertical_4") + Input.GetAxis("Vertical_3");
+		if(gameOverTimer > 0) {
+			gameOverTimer -= Time.deltaTime;
+			return;
+		}
+
+		vAxis =
+			Mathf.Abs(Input.GetAxis("Vertical_1")) > 0.5f ? Mathf.Sign(Input.GetAxis("Vertical_1")) : 0 +
+			Mathf.Abs(Input.GetAxis("Vertical_2")) > 0.5f ? Mathf.Sign(Input.GetAxis("Vertical_2")) : 0 +
+			Mathf.Abs(Input.GetAxis("Vertical_4")) > 0.5f ? Mathf.Sign(Input.GetAxis("Vertical_4")) : 0 +
+			Mathf.Abs(Input.GetAxis("Vertical_3")) > 0.5f ? Mathf.Sign(Input.GetAxis("Vertical_3")) : 0;
 
         submit = Input.GetButton("Submit");
 
-        if (vAxis <= 0) {
+		if (!restartButton.GetIsFocused() &&
+			!quitButton.GetIsFocused()) {
+			restartButton.Focus();
+		}
+
+        if (vAxis < 0 ) {
             if(!restartButton.GetIsFocused())
                 restartButton.Focus();
-            if (submit) {
-                Restart();
-                submit = false;
-            }
+          
         }
-        else {
+		if (vAxis > 0) {
             if (!quitButton.GetIsFocused())
                 quitButton.Focus();
-            if (submit) {
-                submit = false;
-                Application.Quit();
-            }
+            
         }
 
+		if (submit) {
+			if (quitButton.GetIsFocused()) {
+				submit = false;
+				Application.Quit();
+			}
+			else {
+				Restart();
+				submit = false;
+			}
+		}
+		
 
-    }
+
+	}
 
     void Start() {
         uiAnimator = FindUtil.Child<Animator>(this.transform, "Ui");
