@@ -28,10 +28,25 @@ public class PlayerController : MonoBehaviour {
 
 	bool lockControls = false;
 
+	float knockOutTime = -1f;
+
 	bool isHoldingLeftHand, isHoldingRightHand, isHoldingLeftLeg, isHoldingRightLeg;
 
 	public void LockInPlace() {
 		UpdateInput();
+
+		lockControls = true;
+	}
+
+	public void KnockedOut() {
+		leftLegControl = false;
+		rightLegControl = false;
+		hAxis = 0;
+		vAxis = 0;
+		leftHandControl = false;
+		rightHandControl = false;
+
+		knockOutTime = 1.0f;
 
 		lockControls = true;
 	}
@@ -255,8 +270,19 @@ public class PlayerController : MonoBehaviour {
 		return currentWeight / stableLimbs;
 	}
 
-    // Update is called once per frame
-    void LateUpdate() {
+	private void Update() {
+		if(knockOutTime > 0) {
+			knockOutTime -= Time.deltaTime;
+
+			if(knockOutTime < 0) {
+				knockOutTime = -1;
+				lockControls = false;
+			}
+		}
+	}
+
+	// Update is called once per frame
+	void LateUpdate() {
         UpdateInput();
 
         UpdateGripControls();
