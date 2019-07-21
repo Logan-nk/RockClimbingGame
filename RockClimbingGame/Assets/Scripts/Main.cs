@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class Main : MonoBehaviour {
 
     public WallManager wallManager;
-    int heightReached;
+	public RockGenerator rockManager;
+	int heightReached;
 
     CustomButton restartButton;
     CustomButton quitButton;
@@ -20,7 +21,9 @@ public class Main : MonoBehaviour {
     Dictionary<int, int> playerLookup;
     Dictionary<int, PlayerController> playerModelLookup;
     int playerCount = 0;
-    Animator uiAnimator;
+	int playersNeededToStart = 1;
+
+	Animator uiAnimator;
 
     bool leftLegControl;
     bool rightLegControl;
@@ -79,7 +82,7 @@ public class Main : MonoBehaviour {
     private void CheckScore() {
         var highest = 0f;
         foreach (var player in playerModelLookup.Keys) {
-            highest = Mathf.Max((playerModelLookup[player].player.hip.transform.position.y - 7), highest);
+            highest = Mathf.Max((playerModelLookup[player].player.hip.transform.position.y), highest);
         }
 
         Debug.Log(highest);
@@ -89,7 +92,7 @@ public class Main : MonoBehaviour {
     }
 
     private bool CheckGameNotOver() {
-        var cameraHeight = Camera.main.transform.position.y - 5;
+        var cameraHeight = Camera.main.transform.position.y - 10;
 
         foreach (var player in playerModelLookup.Keys) {
             if (playerModelLookup[player].player.hip.transform.position.y > cameraHeight) return true;
@@ -132,7 +135,9 @@ public class Main : MonoBehaviour {
         uiAnimator.SetTrigger("NewGame");
         initialised = true;
         wallManager.NewLevel();
-    }
+		rockManager.GenerateRocks(30);
+
+	}
 
     private void Restart() {
         //tear down
@@ -200,15 +205,15 @@ public class Main : MonoBehaviour {
                 CheckMenuInput();
             }
 
-            if (playerCount > 1) {
-                if (playerCount > 1)
-                    submit = Input.GetButton("Submit");
-                if (submit) {
-                    BeginClimb();
-                    submit = false;
-                    return;
-                }
-            }
+			if (playerCount >= playersNeededToStart) {
+				submit = Input.GetButton("Submit");
+				if (submit) {
+					BeginClimb();
+					submit = false;
+					return;
+				}
+			}
+            
 
             if (remove != 0) {
                 waitingForPlayers.Remove(remove);
@@ -218,9 +223,12 @@ public class Main : MonoBehaviour {
         }
         else {
             CheckScore();
-            if (heightReached >= wallManager.wallHeight * wallManager.wallCount) {
+            if (heightReached >= wallManager.wallHeight * wallManager.wallCount - 30) {
                 wallManager.AddWall();
             }
+			if(heightReached >= rockManager.currentHeight * RockGenerator.rowSize - 20) {
+				rockManager.GenerateRocks(5);
+			}
             if (!CheckGameNotOver()) GameOver();
         }
     }
