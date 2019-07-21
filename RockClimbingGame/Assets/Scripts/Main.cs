@@ -35,6 +35,7 @@ public class Main : MonoBehaviour {
 
         uiAnimator.SetTrigger("StartClimb");
         climbStarted = true;
+        Camera.main.GetComponent<CameraLerp>().enabled = true;
     }
 
     private bool CheckInput(int index) {
@@ -76,6 +77,27 @@ public class Main : MonoBehaviour {
         Debug.Log(highest);
         heightReached = Mathf.RoundToInt(highest);
 
+    }
+
+    private bool CheckGameNotOver() {
+        var cameraHeight = Camera.main.transform.position.y - 5;
+
+        foreach (var player in playerModelLookup.Keys) {
+            if (playerModelLookup[player].player.hip.transform.position.y > cameraHeight) return true;
+        }
+       
+        return false;
+    }
+
+    private void GameOver() {
+        Camera.main.GetComponent<CameraLerp>().enabled = false;
+        Camera.main.transform.position = new Vector3(
+            Camera.main.transform.position.x,
+            10,
+            Camera.main.transform.position.z);
+
+        uiAnimator.SetTrigger("GameOver");
+        climbStarted = false;
     }
 
     private void Init() {
@@ -136,6 +158,7 @@ public class Main : MonoBehaviour {
             if(heightReached >= wallManager.wallHeight * wallManager.wallCount) {
                 wallManager.AddWall();
             }
+            if (!CheckGameNotOver()) GameOver();
         }
     }
 }
