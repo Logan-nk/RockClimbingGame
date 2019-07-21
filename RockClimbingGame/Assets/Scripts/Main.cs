@@ -125,7 +125,7 @@ public class Main : MonoBehaviour {
         uiAnimator.SetTrigger("NewGame");
         initialised = true;
         wallManager.NewLevel();
-		rockManager.GenerateRocks(50);
+		rockManager.GenerateRocks(30);
 
 	}
 
@@ -192,15 +192,15 @@ public class Main : MonoBehaviour {
                 CheckMenuInput();
             }
 
-            if (playerCount > 1) {
-                if (playerCount > 1)
-                    submit = Input.GetButton("Submit");
-                if (submit) {
-                    BeginClimb();
-                    submit = false;
-                    return;
-                }
-            }
+			if (playerCount >= playersNeededToStart) {
+				submit = Input.GetButton("Submit");
+				if (submit) {
+					BeginClimb();
+					submit = false;
+					return;
+				}
+			}
+            
 
             if (remove != 0) {
                 waitingForPlayers.Remove(remove);

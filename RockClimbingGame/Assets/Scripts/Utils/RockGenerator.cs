@@ -17,15 +17,20 @@ public class RockGenerator : MonoBehaviour {
 	private Dictionary<int, List<Rock>> rowsOfRocks;
 
 	public int currentHeight = 0;
+	public int currentIndexToRemove = 0;
 
 	public void GenerateRocks(int rowCount) {
 
-		rowsOfRocks = new Dictionary<int, List<Rock>>();
+		if (rowsOfRocks == null) {
+			rowsOfRocks = new Dictionary<int, List<Rock>>();
+		}
 
 		var rockPrefab = transform.Find("RockPrefab").gameObject;
 		rockPrefab.SetActive(false);
 
-		for (; currentHeight < rowCount; currentHeight++) {
+		var totalAfterNew = currentHeight + rowCount;
+
+		for (; currentHeight < totalAfterNew; currentHeight++) {
 			rowsOfRocks.Add(currentHeight, new List<Rock>());
 			for (var width = 0; width < colomnCount; width++) {
 
@@ -56,7 +61,12 @@ public class RockGenerator : MonoBehaviour {
 		}
 		
 		while(rowsOfRocks.Count > 50) {
-			rowsOfRocks.Remove(rowsOfRocks.Keys.First());
+			foreach (var rock in rowsOfRocks[currentIndexToRemove]) {
+				Destroy(rock.gameObject);
+			}
+			rowsOfRocks.Remove(currentIndexToRemove);
+
+			currentIndexToRemove++;
 		}
 	}
 
@@ -69,6 +79,10 @@ public class RockGenerator : MonoBehaviour {
 			colomnIndex >= colomnCount ||
 			rowIndex < 0) {
 			return null;
+		}
+		
+		if(false == rowsOfRocks.ContainsKey(rowIndex)) {
+			Debug.Log(colomnIndex + ", " + rowIndex);
 		}
 
 		var surroundingRocks = new List<Rock>();
