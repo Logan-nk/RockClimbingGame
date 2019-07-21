@@ -8,6 +8,7 @@ public class Main : MonoBehaviour {
 
     public WallManager wallManager;
 	public RockGenerator rockManager;
+	public AvalancheController avalancheManager;
 	int heightReached;
 
     CustomButton restartButton;
@@ -47,7 +48,10 @@ public class Main : MonoBehaviour {
         climbStarted = true;
         Camera.main.GetComponent<CameraLerp>().enabled = true;
         scoreText.gameObject.SetActive(true);
-    }
+
+		avalancheManager.StartAvalanches();
+
+	}
 
     private bool CheckInput(int index) {
         leftLegControl = Input.GetAxis("LeftLeg_" + index) > 0;
@@ -82,7 +86,7 @@ public class Main : MonoBehaviour {
     private void CheckScore() {
         var highest = 0f;
         foreach (var player in playerModelLookup.Keys) {
-            highest = Mathf.Max((playerModelLookup[player].player.hip.transform.position.y), highest);
+            highest = Mathf.Max((playerModelLookup[player].player.hip.transform.position.y), heightReached);
         }
 
         Debug.Log(highest);
@@ -116,6 +120,8 @@ public class Main : MonoBehaviour {
             var sound = FindUtil.Child<AudioSource>(this.transform, "Climber" + player);
             sound.Play();
         }
+
+		avalancheManager.StopTheRocks();
     }
 
     private void Init() {
@@ -229,7 +235,11 @@ public class Main : MonoBehaviour {
 			if(heightReached >= rockManager.currentHeight * RockGenerator.rowSize - 20) {
 				rockManager.GenerateRocks(5);
 			}
-            if (!CheckGameNotOver()) GameOver();
+
+			avalancheManager.UpdateHeight(heightReached);
+
+
+			if (!CheckGameNotOver()) GameOver();
         }
     }
 }
