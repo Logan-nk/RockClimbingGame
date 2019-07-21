@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 7037480587242977077}
   - component: {fileID: 7037480587250489547}
   m_Layer: 0
-  m_Name: RockClimberOrangeChill 1
+  m_Name: RockClimberOrangeChill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -764,7 +764,7 @@ Animator:
   m_GameObject: {fileID: 7037480587243072363}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 13b885a0c9aedbe4eac6c4c502c0db10, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27474ff746a35134e8e6459677d1c647, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
