@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
 		leftHandControl = false;
 		rightHandControl = false;
 
-		knockOutTime = 1.0f;
+		knockOutTime = 3.0f;
 
 		lockControls = true;
 	}

@@ -21,8 +21,12 @@ public class AvalancheController : MonoBehaviour {
 
 				DropBoulder(1f);
 				DropBoulder(2f);
-				DropBoulder(3f);
-				DropBoulder(4f);
+				if (currentHeight > 100) {
+					DropBoulder(3f);
+				}
+				if (currentHeight > 150) {
+					DropBoulder(4f);
+				}
 
 				currentTime = timeTillBoulder * Random.Range(0.0f, 0.3f);
 			}

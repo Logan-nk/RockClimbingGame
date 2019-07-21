@@ -6,13 +6,13 @@ using System.Linq;
 
 public class RockGenerator : MonoBehaviour {
 	
-	const int colomnCount = 21;
+	const int colomnCount = 15;
 
 	const float colomnRandom = 0.5f;
 	const float rowRandom = 0.5f;
 
-	const float colomnSize = 1f;
-	public const float rowSize = 1;
+	public const float colomnSize = 1.5f;
+	public const float rowSize = 1.5f;
 	
 	private Dictionary<int, List<Rock>> rowsOfRocks;
 
@@ -51,7 +51,7 @@ public class RockGenerator : MonoBehaviour {
 						((currentHeight + 1) * rowSize) + (UnityEngine.Random.value* rowRandom + 0.25f) * rowSize,
 						0);
 
-					newRock.weightLimit = 125f - (UnityEngine.Random.value * 40f) - (currentHeight * 0.1f);
+					newRock.weightLimit = 125f - (UnityEngine.Random.value * 30f) - (currentHeight * 0.1f);
 				}
 
 				newRock.gameObject.SetActive(true);
