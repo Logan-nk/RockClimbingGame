@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ public class Main : MonoBehaviour {
 
     CustomButton restartButton;
     CustomButton quitButton;
+    TextMeshProUGUI scoreText;
 
     bool initialised = false;
     bool climbStarted = false;
@@ -44,6 +46,7 @@ public class Main : MonoBehaviour {
         uiAnimator.SetTrigger("StartClimb");
         climbStarted = true;
         Camera.main.GetComponent<CameraLerp>().enabled = true;
+        scoreText.gameObject.SetActive(true);
     }
 
     private bool CheckInput(int index) {
@@ -84,6 +87,7 @@ public class Main : MonoBehaviour {
 
         Debug.Log(highest);
         heightReached = Mathf.RoundToInt(highest);
+        scoreText.text = heightReached.ToString();
 
     }
 
@@ -107,9 +111,15 @@ public class Main : MonoBehaviour {
         uiAnimator.SetTrigger("GameOver");
         climbStarted = false;
         playerCount = 0;
+
+        foreach (var player in playerModelLookup.Keys) {
+            var sound = FindUtil.Child<AudioSource>(this.transform, "Climber" + player);
+            sound.Play();
+        }
     }
 
     private void Init() {
+        scoreText.gameObject.SetActive(false);
         waitingForPlayers = new List<int> { 1, 2, 3, 4 };
         playerLookup = new Dictionary<int, int>();
         playerModelLookup = new Dictionary<int, PlayerController>();
@@ -166,6 +176,7 @@ public class Main : MonoBehaviour {
 
     void Start() {
         uiAnimator = FindUtil.Child<Animator>(this.transform, "Ui");
+        scoreText = FindUtil.Child<TextMeshProUGUI>(this.transform, "Score");
         Init();
 
         restartButton = FindUtil.Child<CustomButton>(this.transform, "RestartButton");
@@ -174,6 +185,8 @@ public class Main : MonoBehaviour {
         quitButton = FindUtil.Child<CustomButton>(this.transform, "QuitButton");
         quitButton.SetFocusableState(ButtonTransitionStyle.Highlight);
         quitButton.AddToGroup("buttons");
+
+        
     }
 
     // Update is called once per frame
