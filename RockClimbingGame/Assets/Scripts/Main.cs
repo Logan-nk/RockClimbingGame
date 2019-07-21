@@ -9,6 +9,8 @@ public class Main : MonoBehaviour {
 	public RockGenerator rockManager;
 	int heightReached;
 
+    CustomButton restartButton;
+    CustomButton quitButton;
 
     bool initialised = false;
     bool climbStarted = false;
@@ -26,15 +28,18 @@ public class Main : MonoBehaviour {
     bool leftHandControl;
     bool rightHandControl;
     bool submit;
+    float vAxis;
 
     private void BeginClimb() {
         foreach (var player in waitingForPlayers) {
             FindUtil.Child(this.transform, "Climber" + player).gameObject.SetActive(false);
         }
 
-		foreach(var controller in playerModelLookup) {
-			controller.Value.UnlockAndTether();
-		}
+        waitingForPlayers = new List<int>();
+
+        foreach (var controller in playerModelLookup) {
+            controller.Value.UnlockAndTether();
+        }
 
         uiAnimator.SetTrigger("StartClimb");
         climbStarted = true;
@@ -68,12 +73,12 @@ public class Main : MonoBehaviour {
         var container = FindUtil.Child(this.transform, "Player" + playerCount);
         FindUtil.Child(container, "JoinMessage").gameObject.SetActive(false);
 
-		playerModelLookup[playerCount].LockInPlace();
+        playerModelLookup[playerCount].LockInPlace();
     }
 
     private void CheckScore() {
         var highest = 0f;
-        foreach(var player in playerModelLookup.Keys) {
+        foreach (var player in playerModelLookup.Keys) {
             highest = Mathf.Max((playerModelLookup[player].player.hip.transform.position.y), highest);
         }
 
@@ -88,7 +93,7 @@ public class Main : MonoBehaviour {
         foreach (var player in playerModelLookup.Keys) {
             if (playerModelLookup[player].player.hip.transform.position.y > cameraHeight) return true;
         }
-       
+
         return false;
     }
 
@@ -101,6 +106,7 @@ public class Main : MonoBehaviour {
 
         uiAnimator.SetTrigger("GameOver");
         climbStarted = false;
+        playerCount = 0;
     }
 
     private void Init() {
@@ -126,14 +132,48 @@ public class Main : MonoBehaviour {
     private void Restart() {
         //tear down
         Init();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+        SceneManager.LoadScene("LoadingScene");
+        CustomButton.ClearGroup("buttons");
         climbStarted = false;
         heightReached = 0;
+    }
+
+    private void CheckMenuInput() {
+        vAxis = Input.GetAxis("Vertical_1") + Input.GetAxis("Vertical_2")
+            + Input.GetAxis("Vertical_4") + Input.GetAxis("Vertical_3");
+
+        submit = Input.GetButton("Submit");
+
+        if (vAxis <= 0) {
+            if(!restartButton.GetIsFocused())
+                restartButton.Focus();
+            if (submit) {
+                Restart();
+                submit = false;
+            }
+        }
+        else {
+            if (!quitButton.GetIsFocused())
+                quitButton.Focus();
+            if (submit) {
+                submit = false;
+                Application.Quit();
+            }
+        }
+
+
     }
 
     void Start() {
         uiAnimator = FindUtil.Child<Animator>(this.transform, "Ui");
         Init();
+
+        restartButton = FindUtil.Child<CustomButton>(this.transform, "RestartButton");
+        restartButton.SetFocusableState(ButtonTransitionStyle.Highlight);
+        restartButton.AddToGroup("buttons");
+        quitButton = FindUtil.Child<CustomButton>(this.transform, "QuitButton");
+        quitButton.SetFocusableState(ButtonTransitionStyle.Highlight);
+        quitButton.AddToGroup("buttons");
     }
 
     // Update is called once per frame
@@ -148,18 +188,29 @@ public class Main : MonoBehaviour {
                 }
             }
 
-			if (playerCount >= playersNeededToStart) {
-				submit = Input.GetButton("Submit");
-				if (submit) BeginClimb();
-			}
+            if (waitingForPlayers.Count == 0) {
+                CheckMenuInput();
+            }
+
+            if (playerCount > 1) {
+                if (playerCount > 1)
+                    submit = Input.GetButton("Submit");
+                if (submit) {
+                    BeginClimb();
+                    submit = false;
+                    return;
+                }
+            }
 
             if (remove != 0) {
                 waitingForPlayers.Remove(remove);
             }
+
+
         }
         else {
             CheckScore();
-            if(heightReached >= wallManager.wallHeight * wallManager.wallCount - 10) {
+            if (heightReached >= wallManager.wallHeight * wallManager.wallCount) {
                 wallManager.AddWall();
             }
 			if(heightReached >= rockManager.currentHeight * RockGenerator.rowSize - 20) {
